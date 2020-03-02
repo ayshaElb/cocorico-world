@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification Produit{% endblock %}
+
+{% block body %}
+<div class="d-flex flex-column">
+    <div class="btn btn btn-secondary mx-auto " >
+        <a href="{{ path('product_show', {'id':product.id}) }}"> Retour à la fiche produit </a>
+    </div>
+        
+    <div class="producer-form">
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+                <button class="btn btn-primary">Modififier</button>
+        {{ form_end(form) }}
+    </div>
+    <div class="btn btn btn-secondary mx-auto ">
+        {{ include('frontend/product/_delete_form.html.twig') }}
+    </div>
+</div>
+{% endblock %}

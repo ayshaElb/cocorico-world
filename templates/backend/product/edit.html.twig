@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center mt-4">Modifier le produit</h1>
+
+    <div class="container text-center col-md-6 col-sm-10">
+        {% form_theme editProductForm with ['bootstrap_4_horizontal_layout.html.twig'] only %}
+        {{ form_start(editProductForm) }}
+
+        {{ form_row(editProductForm.name) }}
+        {{ form_row(editProductForm.producer) }}
+        {{ form_row(editProductForm.subcategories) }}
+        {{ form_row(editProductForm.price) }}
+        {{ form_row(editProductForm.weight) }}
+        {{ form_row(editProductForm.quantity) }}
+        {{ form_row(editProductForm.description) }}
+        {{ form_row(editProductForm.composition) }}
+        {{ form_row(editProductForm.additionalInfo) }}
+        {{ form_row(editProductForm.allergens) }}
+        {{ form_row(editProductForm.rate) }}
+
+        {# TODO: Image upload #}
+        {{ form_row(editProductForm.image) }}
+
+        <div class="form-group row">
+            <label for="add_category_enable" class="col-form-label col-sm-2">Activer</label>
+            <div class="col-sm-10" data-children-count="1">
+                {{ form_row(editProductForm.enable, {'attr': {'class': 'switch form-control'}}) }}
+            </div>
+        </div>
+
+        {{ form_row(editProductForm.createdAt) }}
+
+        <div class="mt-4">
+            <a href="{{ path('backend_product_list') }}" class="btn btn-secondary">Retour à la liste</a>
+            <button type="submit" class="btn btn-primary">Modifier</button>
+        </div>
+
+        {{ form_end(editProductForm) }}
+    </div>
+{% endblock %}

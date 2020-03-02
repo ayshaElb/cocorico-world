@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}{% block title %}My profil {% endblock %}{% block body %}
+	<div class="producer_profil">
+		<div class="producer-form">
+
+				<h1>Profil User</h1>
+				{# Détails du profil du User loggué #}
+				<p>
+					Username : {{app.user.username}}
+				</p>
+				<p>
+					Email : {{app.user.email}}
+				</p>
+				<p>
+					Crée le : {{app.user.createdAt | date('d-m-Y')}}
+				</p>
+				<p>
+					Mis à jour le : {{app.user.updatedAt | date('d-m-Y')}}
+				</p>
+				<p>
+					Prenom : {{app.user.firstname}}
+				</p>
+				<p>
+					Nom : {{app.user.lastname}}
+				</p>
+				<p>
+					Adresse : {{app.user.address}} - {{app.user.postalCode}} - {{app.user.city}}
+				</p>
+				<p>
+					Telephone : {{app.user.telephone}}
+				</p>
+				<p>
+					Droits :       {% for role in app.user.roles %}
+						<span> - {{ role }}  </span>
+					{% endfor %}
+				</p>
+				<a href="{{ path('profil_update', {'id':app.user.id}) }}" class="btn btn-info">         Modifier mon Profil        <i class="fas"></i></a>
+		</div>
+		{# Détails du profil du Producer loggué #}
+		<div class="producer-form">
+			<h1>Profil producteur</h1>
+			<p>
+				Avatar :{{producer.avatar}}
+			</p>
+			<p>
+				Raison sociale : {{producer.socialReason}}
+			</p>
+			<p>
+				Siret : {{producer.siretNumber}}
+			</p>
+			<p>
+				Statut : {{producer.status}}
+			</p>
+			<p>
+				Email : {{producer.email}}
+			</p>
+			<p>
+				Crée le : {{producer.createdAt | date('d-m-Y')}}
+			</p>
+			<p>
+				Mis à jour le : {{producer.updatedAt | date('d-m-Y')}}
+			</p>
+			<p>
+				Prénom : {{producer.firstname}}
+			</p>
+			<p>
+				Nom : {{producer.lastname}}
+			</p>
+			<p>
+				Adresse : {{producer.address}} - {{producer.postalCode}} - {{producer.city}}
+			</p>
+			<p>
+				Téléphone : {{producer.telephone}}
+			</p>
+			<a href="{{path('producer_edit',{'id': producer.id})}}" class="btn btn-info"> Modifier mon Profil <i class="fas"></i></a>
+		</div>
+		{# Mise en place de la liste des produits du producer avec accès view/edit/delete#}
+		<div class="container  producer-form">
+			<h1>Mes produits </h1>
+			<a href="{{path('product_new')}}" class="btn btn-info"> Ajouter un produit <i class="fa fa-plus-circle"></i></a>
+			<table class="table">
+				<thead>
+				<tr>
+					<th>
+						Name
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for product in producer.products %}
+					<tr>
+						<td>
+							{{ product.name }}
+						</td>
+						<td>
+							<a href="{{ path('product_show', {'id' : product.id})}}" class="btn btn-success"><i class="fa fa-eye" title="Voir la fiche produit"></i></a>
+							<a href="{{path('product_edit', {'id': product.id})}}" class="btn btn-primary"><i class="fa fa-edit" title="Modifier le produit"></i></a>
+							{# Mise en place des conditions pour affichage différent si le produit est enable ou disable #}                    {% if product.enable == true %}
+								<a href="{{ path('disable_product', {'id' : product.id})}}" class="btn btn-success"><i class="fa fa-eye-slash" title="Desactiver le produit"></i></a>
+							{% else %}
+								<a href="{{ path('disable_product', {'id' : product.id})}}" class="btn btn-warning"><i class="fa fa-eye-slash" title="Activer le produit"></i></a>
+							{% endif %}
+							<a href="{{path('product_delete', {'id': product.id})}}" class="btn btn-danger"><i class="fa fa-times" title="Supprimer le produit"></i></a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="5">
+							No records found
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

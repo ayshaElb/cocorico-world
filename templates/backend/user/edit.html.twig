@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user.firstname ?? "Utilisateur" }}{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center mt-4">Modifier l'utilisateur</h1>
+
+    <div class="container text-center col-md-6 col-sm-10">
+        {% form_theme editUserForm with ['bootstrap_4_horizontal_layout.html.twig'] only %}
+        {{ form_start(editUserForm) }}
+
+        {{ form_row(editUserForm.email) }}
+        {{ form_row(editUserForm.roles) }}
+        {{ form_row(editUserForm.password) }}
+        {{ form_row(editUserForm.firstname) }}
+        {{ form_row(editUserForm.lastname) }}
+        {{ form_row(editUserForm.telephone) }}
+        {{ form_row(editUserForm.address) }}
+        {{ form_row(editUserForm.postalCode) }}
+        {{ form_row(editUserForm.city) }}
+
+        <div class="form-group row">
+            <label for="add_category_enable" class="col-form-label col-sm-2">Activer</label>
+            <div class="col-sm-10" data-children-count="1">
+                {{ form_row(editUserForm.enable, {'attr': {'class': 'switch form-control'}}) }}
+            </div>
+        </div>
+
+        {{ form_row(editUserForm.createdAt) }}
+
+        <div class="mt-4">
+            <a href="{{ path('backend_user_list') }}" class="btn btn-secondary">Retour à la liste</a>
+            <button type="submit" class="btn btn-primary">Modifier</button>
+        </div>
+
+        {{ form_end(editUserForm) }}
+    </div>
+{% endblock %}
+

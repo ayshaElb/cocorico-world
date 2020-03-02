@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{product.name}}{% endblock %}
+
+{% block body %}
+{% if product.enable == 1 %}
+<div class="d-flex jumbotron">
+    <div class="card col-sm-12 col-md-6 col-lg-6 mx-auto overflow-hidden">
+            <div class="row col-auto d-flex justify-content-center mx-1">
+                <div class="card-img-responsive mx-auto my-auto text-center " >                    
+                    <img src="{{ product.image }}"   alt="{{ product.name }}">                   
+                </div> <!--End of div image-->  
+                <div class="col-sm-12 col-md-10 col-lg-6 text-center container-fluid p-0 m-0">
+                    <h1 class="card-title w-100">{{ product.name }}</h1>
+                    <div class="btn btn-secondary">{{ product.price }} €</div><!--End of div price--> 
+                    <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                    </div><!--End of span div-->  
+                    <div class="">Conditionnement : {{ product.weight }} </div>                    
+                    <form >
+                        <div class="form align-items-center">
+                            <div class="col-auto my-1 mx-1">
+                            <label class=" sr-only d-block" for="inlineFormCustomSelect">Choisir une quantité</label>
+                            <select class="custom-select col-auto " id="inlineFormCustomSelect">
+                                <option selected>Choisir une quantité</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                            </div>
+                            <div class="col-auto my-1">
+                            <button type="submit" class="btn btn-secondary">Ajouter au Panier</button>
+                            </div>
+                        </div>
+                    </form>
+                </div> <!--end of block-->
+            </div>
+            <div class="d-flex d-inline-col-md- navbar justify-content-center">
+                    <p>
+                        <button class="btn btn-info navbar-toggle d-block mx-1" type="button" data-toggle="collapse" data-target="#description" aria-expanded="false" aria-controls="description">Description </button>
+                    </p>
+                    <div class="collapse " id="description">
+                        <div class="card card-body">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.                                
+                        </div>
+                    </div>
+                    <p>
+                        <button class="btn btn-info navbar-toggle d-block mx-1" type="button" data-toggle="collapse" data-target="#composition" aria-expanded="false" aria-controls="composition">Composition</button>
+                    </p>
+                    <div class="collapse" id="composition">
+                        <div class="card card-body">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.                                  
+                        </div>
+                    </div>
+                    <p>
+                        <button class="btn btn-info navbar-toggle d-block mx-1" type="button" data-toggle="collapse" data-target="#Livraison" aria-expanded="false" aria-controls="Livraison">Livraison</button>
+                    </p>
+                    <div class="collapse" id="Livraison">
+                        <div class="card card-body">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.                                       
+                        </div>
+                    </div>
+                    <p>
+                        <button class="btn btn-info navbar-toggle d-block mx-1" type="button" data-toggle="collapse" data-target="#Conservation" aria-expanded="false" aria-controls="Conservation">Conservation</button>
+                    </p>
+                    <div class="collapse" id="Conservation">
+                        <div class="card card-body">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </div>
+                    </div>
+                    <p>
+                        <button class="btn btn-info navbar-toggle d-block mx-1" type="button" data-toggle="collapse" data-target="#Conditionnement" aria-expanded="false" aria-controls="Conditionnement">Conditionnement</button>
+                    </p>
+                    <div class="collapse" id="Conditionnement">
+                        <div class="card card-body">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.                           
+                        </div>
+                    </div>
+            </div><!--End of collapse div -->
+    </div><!--End of product-card -->
+
+    <div class="card col-md-4 h-100 d-none d-md-block d-lg-block" > 
+        <div class="row no-gutters" >
+            <div class="card-img-responsive mx-auto my-auto text-center">
+                    <img src="{{ product.producer.avatar }}"  alt="{{ product.producer.firstname }}">
+            </div>
+            <div class="mx-auto">
+                <div class="card-body text-center ">
+                    <h5 class="card-title">{{ product.producer.socialReason }}</h5>
+                    <p>{{ product.producer.city }}</p>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+            </div>
+            <div class="text-center card-text mx-auto">                    
+                    <h5>Description</h5>                    
+                    {% if product.producer.description %}
+                        {{ product.producer.description }}
+                    {% else %}
+                        <p>Non communiquée</p>
+                    {% endif %}
+        </div>
+        </div>
+    </div><!--End of producer-card-->  
+   
+    
+</div><!--End of container-->
+
+<h2>Les dernières nouveautés de {{ product.producer.socialReason }} </h2>
+<div class="container m-1 d-flex row text-center mx-auto">    
+    {% for product in product_producer %}
+    <div class="card col-xs-10 col-sm-6 col-md-4 col-lg-3 " >
+        <div class="card-img-responsive mt-2 text-center ">
+            <a href="{{ path('product_show', {'id' : product.id})}}"><img src="{{ product.image }}" alt="{{ product.name }}"></a>                
+        </div>
+        <div  class="card-body label-product-homepage">
+            <a href="#">
+            <h5 class="card-title">{{ product.name }}</h5>
+                <p>{{ product.producer.city }}</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <p class="card-text"> {{product.producer.socialReason}} </p>
+            </a>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item description-product-homepage">
+                <p class="card-text">
+                    <h5>Description</h5>
+                    {{ product.description }}
+                </p>
+            </li>
+        </ul>
+        <div class="card-body text-center">
+            <a class="btn btn-secondary prod-button" href="{{ path('product_show', {'id' : product.id})}}">Voir plus</a>
+        </div>
+    </div>
+    {% endfor %}
+</div> <!-- End of last product of producer-->
+
+{% else %}
+    <p>Le produit est archivé</p>
+{% endif %}
+{% endblock %}
+

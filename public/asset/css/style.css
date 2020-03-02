@@ -1,0 +1,48 @@
+body{
+    font-family: 'Convergence', sans-serif;
+    background-color: lightgrey;
+}
+.navbar-brand
+{
+    text-transform: capitalize;
+    font-weight: bolder;
+}
+footer {
+    color: black;
+    border-top: 1rem solid black;
+}
+a{
+    color: black;
+}
+.description-producer-homepage {
+    height: 185px;
+    overflow: hidden;
+}
+
+/* --- --- --- */
+
+.login-form,
+.producer-form {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    overflow: auto;
+    box-shadow: 0px 0px 20px #aaa;
+    border-radius: 10px;
+    text-align: center;
+    height: 100%;
+}
+
+.producer_profil {
+    display: flex;
+}
+
+.homepagecard {
+    margin: auto auto;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 71%;
+    justify-content: center;
+}

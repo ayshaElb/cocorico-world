@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center mt-4 mb-5">Tableau de bord Admin</h1>
+
+    <div class="container">
+
+        <div class="row justify-content-around text-center">
+
+            <a href="{{ path('backend_univers_list') }}" class="col-10 col-sm-5 btn btn-secondary mb-4">Liste des univers</a>
+            <a href="{{ path('backend_category_list') }}" class="col-10 col-sm-5 btn btn-secondary mb-4">Liste des catégories</a>
+            <a href="{{ path('backend_subcategory_list') }}" class="col-10 col-sm-5 btn btn-secondary mb-4">Liste des sous-catégories</a>
+            <a href="{{ path('backend_product_list') }}" class="col-10 col-sm-5 btn btn-secondary mb-4">Liste des produits</a>
+            <a href="{{ path('backend_producer_list') }}" class="col-10 col-sm-5 btn btn-secondary mb-4">Liste des producteurs</a>
+            <a href="{{ path('backend_user_list') }}" class="col-10 col-sm-5 btn btn-secondary mb-4">Liste des utilisateurs</a>
+
+        </div>
+    </div>
+{% endblock %}

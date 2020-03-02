@@ -1,0 +1,101 @@
+<header >
+    <nav class="navbar navbar-expand-lg navbar-light ">
+    
+        <a href="{{ path('home') }}" class="navbar-brand">
+            Cocorico world
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+            <form method="get" class="container-fluid">
+                <div class="input-group">
+                    <input class="form-control" name="q" type="search" placeholder="Rechercher" aria-label="Rechercher">
+                    <div class="input-group-append">
+                        <button id="search_submit" class="btn btn-secondary" type="submit">
+                            <span class="fa fa-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+    <ul class="navbar-nav">
+  
+      <li class="nav-item">
+          <a href="{{ path('home') }}" class="nav-link d-flex align-items-center">
+              <i class="fa fa-home mr-2" aria-hidden="true"></i>
+              Accueil <span class="sr-only">(current)</span>
+          </a>
+      </li>
+      <li class="nav-item">
+          <div class="dropdown">
+              <a href="#" class="nav-link d-flex align-items-center dropdown-toggle" role="button"
+              id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-user mr-2" aria-hidden="true"></i>
+                    {% if app.user %}
+                        Mon compte
+                    {% else %}
+                        Identification
+                    {% endif %}
+                  
+                  <span class="sr-only">(current)</span>
+              </a>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if is_granted('ROLE_PRODUCER') %}
+            <a href="{{ path('producer_show', {'id' : app.user.producer.id}) }}" class="dropdown-item">Ma boutique</a>
+            <a href="{{ path('producer_profil') }}" class="dropdown-item">Mon profil</a>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('backend_admin_home') }}" class="dropdown-item">Administration</a>
+            <a href="{{ path('profil_user') }}" class="dropdown-item">Mon profil</a> 
+        {% endif %}
+        {% if is_granted('ROLE_USER') == false %}  
+        <a href="{{ path('profil_user') }}" class="dropdown-item">Mon profil</a>    
+        {% endif %}  
+        <a href="{{ path('app_logout') }}" class="dropdown-item">Me déconnecter</a>               
+    {% else %}
+        <a href="{{ path('app_login') }}" class="dropdown-item">Me connecter</a>
+        <a href="{{ path('app_registration') }}" class="dropdown-item">M'inscrire</a>
+    {% endif %}
+    </div>
+          </div>
+      </li>
+      <li class="nav-item">
+          <a href="#" class="nav-link d-flex align-items-center">
+              <i class="fa fa-shopping-cart mr-2" aria-hidden="true"></i>
+              0 <span class="sr-only">(current)</span>
+          </a>
+      </li>
+  </ul>
+  
+  </div>
+  </nav>
+    <!--/.Navbar -->
+          
+  
+    
+    <!--Univers Menu -->
+    <div class="navbar navbar-dark bg-dark">
+      <div class="dropdown-list pb-1 d-flex flex-wrap justify-content-lg-center justify-content-between w-100">
+          {% for univers in universes %}
+              <div class="dropdown">
+                  <a class=" nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ univers.name }}</a>
+                  <!-- lien -->
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                      {% for categorie in univers.categories %}
+                          <a class="category dropdown-item dropdown-category bg-secondary" href="#">{{ categorie.name }}</a>
+                          {% for subcategory in categorie.subcategories %}
+                              <a class=" subcategory afficher dropdown-item overflow: visible" href="{{ path('showlist', {'id' : subcategory.id}) }}">{{ subcategory.name }}</a>
+                          {% endfor %}
+                      {% endfor %}
+                  </div>
+              </div>
+          {% endfor %}
+      </div>
+  </div>
+  <!--/.Univers Menu --> 
+  
+  </header>

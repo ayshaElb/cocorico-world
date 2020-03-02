@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center mt-4">Liste des produits</h1>
+
+    <div class="container text-center">
+
+        <div class="d-flex justify-content-around flex-wrap">
+            <button type="button" class="btn btn-secondary mb-4"> <a href="{{ path('backend_admin_home') }}">Retour à l'accueil administration</a> </button>
+            <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#AddProductModal">➕ Ajouter un produit</button>
+        </div>
+
+        <div class="modal fade" id="AddProductModal" tabindex="-1" role="dialog" aria-labelledby="AddProductModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="AddProductModalLabel">Ajouter un produit</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% form_theme addProductForm with ['bootstrap_4_horizontal_layout.html.twig'] only %}
+                    {{ form_start(addProductForm) }}
+                    <div class="modal-body">
+                        {{ form_row(addProductForm.name) }}
+                        {{ form_row(addProductForm.price) }}
+                        {{ form_row(addProductForm.weight) }}
+                        {{ form_row(addProductForm.quantity) }}
+                        {{ form_row(addProductForm.producer) }}
+                        {{ form_row(addProductForm.subcategory) }}
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </div>
+                    {{ form_end(addProductForm) }}
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-striped table-responsive text-center">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Producteur</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Poid</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Image</th>
+                <th scope="col">Description</th>
+                <th scope="col">Composition</th>
+                <th scope="col">Infos Supp.</th>
+                <th scope="col">Allergènes</th>
+                <th scope="col">Note</th>
+                <th scope="col">Activer</th>
+                <th scope="col">Date de création</th>
+                <th scope="col">Dernière mise à jour</th>
+                <th scope="col">Modification</th>
+                <th scope="col">Suppression</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in pagination %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.producer.firstname ~ ' ' ~ product.producer.lastname }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }} €</td>
+                    <td>{{ product.weight }} kg</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>
+                        {% if product.image is not null %}
+                            {% if product.image matches '#^https://#' %}
+                                <img src="{{ product.image|replace({'200':'80'}) }}" alt="{{ product.name }}">
+                            {% else %}
+                                <img src="{{ asset('uploads/avatar/' ~ product.image) }}" alt="{{ product.name }}">
+                            {% endif %}
+                        {% else %}
+                            Pas d'image
+                        {% endif %}
+                    </td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.composition  }}</td>
+                    <td>{{ product.additionalInfo }}</td>
+                    <td>{{ product.allergens  }}</td>
+                    <td>{{ product.rate }}/5</td>
+                    <td>{{ product.enable ? "Oui" : "Non" }}</td>
+                    <td>{{ product.createdAt|date("d M Y, H:i:s", "Europe/Paris") }}</td>
+                    <td>{{ product.updatedAt ? product.updatedAt|date("d M Y, H:i:s", "Europe/Paris") : 'Aucune date' }}</td>
+                    <td class="table__data--edit">
+                        <a href="{{ path('backend_product_edit', {'id' : product.id}) }}"><i class="fa fa-pencil-square-o edit__icon"></i></a>
+                    </td>
+                    <td class="table__data--delete">
+                        <form action="{{ path('backend_product_delete', {'id' : product.id}) }}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimez le produit ?');">
+                            <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}">
+                            <button type="submit" class="btn justify-content-center delete__button"><i class="fa fa-trash-o delete__icon"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="text-center">
+                    <td colspan="17">Aucun résultat !</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+
+{% endblock %}

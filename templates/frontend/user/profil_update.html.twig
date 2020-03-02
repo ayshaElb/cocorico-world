@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier votre profil{% endblock %}
+
+{% block body %}
+
+<h2>Modification du profil</h2>
+
+<div class= "producer-form">
+
+{{ form_start(update_form) }}
+
+      {{ form_row(update_form.firstname) }}
+
+      {{ form_row(update_form.lastname) }}
+
+      {{ form_row(update_form.email) }}
+
+      {{ form_row(update_form.address) }}
+
+      {{ form_row(update_form.postalCode) }}
+
+      {{ form_row(update_form.city) }}
+
+      {{ form_row(update_form.password) }}
+
+      {{ form_row(update_form.telephone) }}
+
+      <input type="submit" class="btn btn-success" value="Modifier" id="submit">
+    
+{{ form_end(update_form) }}
+</div>
+
+{% endblock %}

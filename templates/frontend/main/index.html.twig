@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cocorico World Home {% endblock %}
+
+{% block body %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Nos producteurs</h1>
+      <p class="lead">Découvrez et cuisinez les meilleurs produits de votre région. </p>
+
+    </div>
+</div>
+
+<div class="container my-3 d-flex flex-wrap w-100">
+
+        {% for producer in producers %}
+        {% set url = path('producer_show', {'id': producer.id}) %}
+            <div class="card col-xs-10 col-sm-6 col-md-4 col-lg-3 overflow-hidden " >
+                <div class="card-img-responsive mt-2 text-center ">
+                    {% if producer.avatar matches '#^https://#' %}
+                        <a href="{{ url }}"><img src="{{ producer.avatar }}" alt="{{ producer.firstname }}"></a>
+                    {% else %}
+                        <a href="{{ url }}"><img src="{{ asset('uploads/avatar/' ~ producer.avatar) }}" alt="{{ producer.firstname }}"></a>
+                    {% endif %}
+                
+                </div>
+                <div  class="card-body label-producer-homepage">
+                    <a href="#">
+                    <h5 class="card-title">{{ producer.socialReason }}</h5>
+                        <p>{{ producer.city }}</p>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <p class="card-text"> </p>
+    
+                       </a>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item description-producer-homepage">
+                        <p class="card-text">
+                            <h5>Description</h5>
+                            {{ producer.description }}
+                        </p>
+                    </li>
+    
+                </ul>
+                <div class="card-body text-center">
+                    <a class="btn btn-secondary prod-button" href="{{ path('producer_show', {'id' : producer.id})}}">Boutique du producteur</a>
+                </div>
+            </div>
+        {% endfor %}
+</div>
+{% endblock %}

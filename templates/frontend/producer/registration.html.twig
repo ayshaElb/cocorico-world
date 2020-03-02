@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Producer Registration{% endblock %}
+
+{% block body %}
+
+<div class="producer-form">
+        <h3>Inscrivez vous !</h3>
+     
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_row(form.avatar) }}
+            <button class="btn btn-primary">Inscription</button>
+        {{ form_end(form) }}
+</div>
+
+{% endblock %}

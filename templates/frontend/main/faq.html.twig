@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FAQ Cocorico!{% endblock %}
+
+{% block body %}
+<div class="container">
+    
+    <div class="jumbotron mt-4 mb-4 overflow-hidden ">
+        <h1 class="d-sm-4 d-1 overflow-hidden">FAQ - Foire aux questions!</h1>
+        <p class="d-sm-6 d-4 overflow-hidden"> Comment peut-on vous aider aujourd'hui?</p>
+        <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Recherche</button>
+        </form>
+</div>
+<div class="container mt-4 mb-4">
+    <div class="h3"> Bases de connaissances </div>
+    <div class="card">
+        <p class="card-text">
+            Mon compte: Mes questions
+        </p>
+    </div>
+    <div class="card">
+        <p class="card-text">
+            Livraison: Mes questions
+        </p>
+    </div>
+    <div class="card">
+        <p class="card-text">
+            Mes commandes: Mes questions
+        </p>
+    </div>
+    <div class="card">
+        <p class="card-text">
+            Service client: Mes questions
+        </p>
+    </div>
+</div>
+</div>
+{% endblock %}
