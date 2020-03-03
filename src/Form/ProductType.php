@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
@@ -43,6 +44,12 @@ class ProductType extends AbstractType
                 'mapped'      => false,
                 'required'    => false
                 ])
+            ->add('enable', ChoiceType::class, [
+                'choices' => [
+                    'activé' => true,
+                    'désactivé'  => false,
+                ]
+            ])
             ->add('image', FileType::class, [
                 'label' => 'Image',
 

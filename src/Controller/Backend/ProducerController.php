@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * Class ProducerController
  * @package App\Controller\Backend
- * @Route( name="backend_")
+  @Route("/backend", name="backend_")
  * 
  */
 class ProducerController extends AbstractController

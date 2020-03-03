@@ -50,9 +50,8 @@
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('backend_admin_home') }}" class="dropdown-item">Administration</a>
-            <a href="{{ path('profil_user') }}" class="dropdown-item">Mon profil</a> 
         {% endif %}
-        {% if is_granted('ROLE_USER') == false %}  
+        {% if is_granted(['ROLE_PRODUCER']) == false %} 
         <a href="{{ path('profil_user') }}" class="dropdown-item">Mon profil</a>    
         {% endif %}  
         <a href="{{ path('app_logout') }}" class="dropdown-item">Me déconnecter</a>               

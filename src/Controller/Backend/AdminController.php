@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * Class AdminController
  * @package App\Controller\Backend
- * @Route( name="backend_")
+ * @Route("/backend", name="backend_")
  * 
  */
 class AdminController extends AbstractController

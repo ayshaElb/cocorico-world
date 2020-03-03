@@ -177,20 +177,23 @@ class ProductController extends AbstractController
     public function delete(Request $request, Product $product = null)
     {
         if (!$product) {
-
-            throw $this->createNotFoundException('La page que vous recherchez n\'existe pas');
+            throw $this->createNotFoundException('Le produit que vous recherchez n\'existe pas !');
         }
 
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-            $manager = $this->getDoctrine()->getManager();
-            $manager->remove($product);
-            $manager->flush();
+        $submittedToken = $request->request->get('_token');
+
+        if ($this->isCsrfTokenValid('_delete-item', $submittedToken)) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($product);
+            $em->flush();
 
             $this->addFlash(
-                'sucess',
-                'Suppression effectuée'
+                'success',
+                'Le produit a été supprimé avec succès !'
             );
-        } else {
+        } 
+        else {
 
             $this->addFlash(
                 'danger',

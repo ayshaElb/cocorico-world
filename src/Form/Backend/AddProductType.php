@@ -3,13 +3,14 @@
 namespace App\Form\Backend;
 
 use App\Entity\Product;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class AddProductType extends AbstractType
 {
@@ -36,6 +37,12 @@ class AddProductType extends AbstractType
                 'label'    => 'Sous catégories',
                 'class'    => 'App\Entity\Subcategory',
                 'multiple' => true,
+            ])
+            ->add('enable', ChoiceType::class, [
+                'choices' => [
+                    'activé' => true,
+                    'désactivé'  => false,
+                ]
             ])
         ;
     }

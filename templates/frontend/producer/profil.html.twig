@@ -83,6 +83,9 @@
 					<th>
 						Name
 					</th>
+					<th>
+						Enable
+					</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -92,14 +95,15 @@
 							{{ product.name }}
 						</td>
 						<td>
+							{% if product.enable %} activé {% else %} désactivé {% endif %}
+						</td>
+						<td>
 							<a href="{{ path('product_show', {'id' : product.id})}}" class="btn btn-success"><i class="fa fa-eye" title="Voir la fiche produit"></i></a>
 							<a href="{{path('product_edit', {'id': product.id})}}" class="btn btn-primary"><i class="fa fa-edit" title="Modifier le produit"></i></a>
-							{# Mise en place des conditions pour affichage différent si le produit est enable ou disable #}                    {% if product.enable == true %}
-								<a href="{{ path('disable_product', {'id' : product.id})}}" class="btn btn-success"><i class="fa fa-eye-slash" title="Desactiver le produit"></i></a>
-							{% else %}
-								<a href="{{ path('disable_product', {'id' : product.id})}}" class="btn btn-warning"><i class="fa fa-eye-slash" title="Activer le produit"></i></a>
-							{% endif %}
-							<a href="{{path('product_delete', {'id': product.id})}}" class="btn btn-danger"><i class="fa fa-times" title="Supprimer le produit"></i></a>
+							<form action="{{path('product_delete', {'id': product.id})}}" method="post" onsubmit="return confirm('Voulez vous vraiment supprimez le produit ?');">
+								<input type="hidden" name="_token" value="{{ csrf_token('_delete-item') }}">
+								<button type="submit" class="btn btn-danger"><i class="fa fa-times" title="Supprimer le produit"></i></button>
+							</form>
 						</td>
 					</tr>
 				{% else %}
